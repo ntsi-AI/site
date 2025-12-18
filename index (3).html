@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦁 Theo Dõi Tập Tính Sư Tử - Vườn Thú</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+        .lion-container {
+            background: linear-gradient(135deg, #166534 0%, #15803d 50%, #22c55e 100%);
+        }
+        .golden-text {
+            color: #fbbf24;
+        }
+        .golden-border {
+            border-color: #fbbf24;
+        }
+        .card-bg {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .input-style {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #fbbf24;
+            color: #fef3c7;
+        }
+        .input-style:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #fbbf24;
+        }
+        .input-style::placeholder {
+            color: #fcd34d;
+            opacity: 0.6;
+        }
+        .btn-golden {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: #166534;
+        }
+        .btn-golden:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+            transform: translateY(-2px);
+        }
+        .status-good { background: #22c55e; }
+        .status-warning { background: #f59e0b; }
+        .status-bad { background: #ef4444; }
+        
+        @keyframes lionBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .lion-bounce {
+            animation: lionBounce 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="lion-container min-h-screen">
+    <!-- Header -->
+    <header class="py-6 px-4 border-b-2 golden-border">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span class="text-6xl lion-bounce">🦁</span>
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold golden-text">HỆ THỐNG THEO DÕI SƯ TỬ</h1>
+                    <p class="text-yellow-200 text-lg">Vườn Thú Quốc Gia - Ban Quản Lý Động Vật Hoang Dã</p>
+                </div>
+            </div>
+            <div class="hidden md:block text-right">
+                <p class="golden-text font-bold" id="currentDate"></p>
+                <p class="text-yellow-200" id="currentTime"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-4 md:p-6">
+        <!-- Lion Profile Section -->
+        <section class="card-bg rounded-2xl p-6 mb-6 golden-border border-2">
+            <h2 class="text-2xl font-bold golden-text mb-4 flex items-center gap-2">
+                <span>👤</span> THÔNG TIN SƯ TỬ
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Lion Image -->
+                <div class="flex flex-col items-center">
+                    <div class="w-48 h-48 rounded-full border-4 golden-border overflow-hidden mb-4 bg-gradient-to-br from-yellow-600 to-orange-700 flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=400&h=400&fit=crop" 
+                             alt="Sư tử" 
+                             class="w-full h-full object-cover"
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-8xl\'>🦁</span>';">
+                    </div>
+                    <span class="text-xl font-bold golden-text">SIMBA</span>
+                    <span class="text-yellow-200">Sư tử đực châu Phi</span>
+                </div>
+                
+                <!-- Basic Info -->
+                <div class="space-y-3">
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Mã số:</span>
+                        <span class="golden-text font-bold">LION-001</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Tuổi:</span>
+                        <span class="golden-text font-bold">7 tuổi</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Cân nặng:</span>
+                        <span class="golden-text font-bold">185 kg</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Chiều dài:</span>
+                        <span class="golden-text font-bold">2.1 m</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Nguồn gốc:</span>
+                        <span class="golden-text font-bold">Kenya, Châu Phi</span>
+                    </div>
+                </div>
+                
+                <!-- Health Status -->
+                <div class="space-y-3">
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Ngày nhập:</span>
+                        <span class="golden-text font-bold">15/03/2020</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Khu vực:</span>
+                        <span class="golden-text font-bold">Chuồng A-12</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Tình trạng sức khỏe:</span>
+                        <span class="px-2 py-1 rounded status-good text-white text-sm font-bold">Tốt</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Tiêm phòng:</span>
+                        <span class="golden-text font-bold">Đã tiêm đủ</span>
+                    </div>
+                    <div class="flex justify-between border-b border-yellow-600 pb-2">
+                        <span class="text-yellow-200">Người phụ trách:</span>
+                        <span class="golden-text font-bold">Nguyễn Văn A</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Tracking Form -->
+        <section class="card-bg rounded-2xl p-6 mb-6 golden-border border-2">
+            <h2 class="text-2xl font-bold golden-text mb-4 flex items-center gap-2">
+                <span>📋</span> CẬP NHẬT THEO DÕI HÀNG NGÀY
+            </h2>
+            
+            <form id="trackingForm" class="space-y-6">
+                <!-- Date and Time -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">📅 Ngày theo dõi</label>
+                        <input type="date" id="trackDate" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">⏰ Giờ theo dõi</label>
+                        <input type="time" id="trackTime" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Feeding Behavior -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🍖 Lượng thức ăn (kg)</label>
+                        <input type="number" step="0.1" placeholder="VD: 8.5" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🥩 Loại thức ăn</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="beef">Thịt bò</option>
+                            <option value="chicken">Thịt gà</option>
+                            <option value="horse">Thịt ngựa</option>
+                            <option value="mixed">Hỗn hợp</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">😋 Mức độ ăn</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="excellent">Ăn hết - Rất tốt</option>
+                            <option value="good">Ăn gần hết - Tốt</option>
+                            <option value="normal">Ăn 1/2 - Bình thường</option>
+                            <option value="poor">Ăn ít - Kém</option>
+                            <option value="none">Không ăn</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Water Consumption -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">💧 Lượng nước uống (lít)</label>
+                        <input type="number" step="0.1" placeholder="VD: 5.0" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🚰 Tần suất uống nước</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="frequent">Thường xuyên (>5 lần/ngày)</option>
+                            <option value="normal">Bình thường (3-5 lần/ngày)</option>
+                            <option value="less">Ít (<3 lần/ngày)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Activity Level -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🏃 Mức độ hoạt động</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="very-active">Rất năng động</option>
+                            <option value="active">Năng động</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="lazy">Lười biếng</option>
+                            <option value="inactive">Không hoạt động</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">😴 Thời gian ngủ (giờ)</label>
+                        <input type="number" step="0.5" placeholder="VD: 16" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🌙 Chất lượng giấc ngủ</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="deep">Ngủ sâu</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="restless">Không yên giấc</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Social Behavior -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🦁 Tương tác xã hội</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="friendly">Thân thiện với đàn</option>
+                            <option value="dominant">Thể hiện ưu thế</option>
+                            <option value="submissive">Phục tùng</option>
+                            <option value="isolated">Tách biệt</option>
+                            <option value="aggressive">Hung dữ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🔊 Âm thanh/Gầm rống</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="frequent">Thường xuyên gầm</option>
+                            <option value="occasional">Thỉnh thoảng</option>
+                            <option value="rare">Hiếm khi</option>
+                            <option value="none">Không gầm</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Territory & Grooming -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🏠 Đánh dấu lãnh thổ</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="active">Tích cực đánh dấu</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="none">Không đánh dấu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🧹 Tự chải lông</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="frequent">Thường xuyên</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="rare">Hiếm khi</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">✨ Tình trạng bộ lông</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="shiny">Bóng mượt</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="dull">Xỉn màu</option>
+                            <option value="patchy">Rụng từng mảng</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Health Indicators -->
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">👀 Mắt</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="clear">Trong sáng</option>
+                            <option value="watery">Chảy nước</option>
+                            <option value="red">Đỏ</option>
+                            <option value="cloudy">Đục</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">👃 Mũi</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="dry">Khô</option>
+                            <option value="runny">Chảy nước</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">💩 Phân</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="loose">Lỏng</option>
+                            <option value="hard">Cứng</option>
+                            <option value="blood">Có máu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🚶 Dáng đi</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="normal">Bình thường</option>
+                            <option value="limping">Khập khiễng</option>
+                            <option value="stiff">Cứng nhắc</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Body Condition -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">⚖️ Điểm thể trạng (1-9)</label>
+                        <input type="range" min="1" max="9" value="5" id="bodyScore" class="w-full" oninput="document.getElementById('scoreValue').textContent = this.value">
+                        <div class="flex justify-between text-yellow-200 text-sm mt-1">
+                            <span>Gầy</span>
+                            <span class="golden-text font-bold">Điểm: <span id="scoreValue">5</span></span>
+                            <span>Béo</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🌡️ Nhiệt độ cơ thể (°C)</label>
+                        <input type="number" step="0.1" placeholder="VD: 38.5" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Environmental Response -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🎯 Phản ứng với đồ chơi/làm giàu môi trường</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="very-interested">Rất hứng thú</option>
+                            <option value="interested">Hứng thú</option>
+                            <option value="indifferent">Thờ ơ</option>
+                            <option value="afraid">Sợ hãi</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">👥 Phản ứng với khách tham quan</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="curious">Tò mò</option>
+                            <option value="indifferent">Thờ ơ</option>
+                            <option value="stressed">Căng thẳng</option>
+                            <option value="aggressive">Hung dữ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Weather & Environment -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🌤️ Thời tiết</label>
+                        <select class="input-style w-full p-3 rounded-lg">
+                            <option value="">-- Chọn --</option>
+                            <option value="sunny">Nắng</option>
+                            <option value="cloudy">Nhiều mây</option>
+                            <option value="rainy">Mưa</option>
+                            <option value="hot">Nóng</option>
+                            <option value="cold">Lạnh</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">🌡️ Nhiệt độ môi trường (°C)</label>
+                        <input type="number" placeholder="VD: 28" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block golden-text font-bold mb-2">💨 Độ ẩm (%)</label>
+                        <input type="number" placeholder="VD: 65" class="input-style w-full p-3 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div>
+                    <label class="block golden-text font-bold mb-2">📝 Ghi chú đặc biệt</label>
+                    <textarea rows="4" placeholder="Nhập các quan sát đặc biệt, hành vi bất thường, hoặc ghi chú khác..." class="input-style w-full p-3 rounded-lg"></textarea>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <button type="submit" class="btn-golden px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 flex items-center gap-2">
+                        <span>💾</span> LƯU BÁO CÁO
+                    </button>
+                    <button type="button" onclick="clearForm()" class="bg-red-600 hover:bg-red-500 text-white px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 flex items-center gap-2">
+                        <span>🗑️</span> XÓA FORM
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Recent Records -->
+        <section class="card-bg rounded-2xl p-6 golden-border border-2">
+            <h2 class="text-2xl font-bold golden-text mb-4 flex items-center gap-2">
+                <span>📊</span> LỊCH SỬ THEO DÕI GẦN ĐÂY
+            </h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b-2 golden-border">
+                            <th class="golden-text p-3">Ngày</th>
+                            <th class="golden-text p-3">Thức ăn</th>
+                            <th class="golden-text p-3">Hoạt động</th>
+                            <th class="golden-text p-3">Sức khỏe</th>
+                            <th class="golden-text p-3">Người ghi</th>
+                            <th class="golden-text p-3">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recordsTable">
+                        <tr class="border-b border-yellow-600/50 hover:bg-white/5">
+                            <td class="text-yellow-200 p-3">20/01/2025</td>
+                            <td class="text-yellow-200 p-3">8.5kg - Ăn hết</td>
+                            <td class="text-yellow-200 p-3">Năng động</td>
+                            <td class="text-yellow-200 p-3">Tốt</td>
+                            <td class="text-yellow-200 p-3">Nguyễn Văn A</td>
+                            <td class="p-3"><span class="px-2 py-1 rounded status-good text-white text-sm">Bình thường</span></td>
+                        </tr>
+                        <tr class="border-b border-yellow-600/50 hover:bg-white/5">
+                            <td class="text-yellow-200 p-3">19/01/2025</td>
+                            <td class="text-yellow-200 p-3">7.0kg - Ăn gần hết</td>
+                            <td class="text-yellow-200 p-3">Bình thường</td>
+                            <td class="text-yellow-200 p-3">Tốt</td>
+                            <td class="text-yellow-200 p-3">Trần Thị B</td>
+                            <td class="p-3"><span class="px-2 py-1 rounded status-good text-white text-sm">Bình thường</span></td>
+                        </tr>
+                        <tr class="border-b border-yellow-600/50 hover:bg-white/5">
+                            <td class="text-yellow-200 p-3">18/01/2025</td>
+                            <td class="text-yellow-200 p-3">5.0kg - Ăn ít</td>
+                            <td class="text-yellow-200 p-3">Lười biếng</td>
+                            <td class="text-yellow-200 p-3">Theo dõi</td>
+                            <td class="text-yellow-200 p-3">Nguyễn Văn A</td>
+                            <td class="p-3"><span class="px-2 py-1 rounded status-warning text-white text-sm">Cần theo dõi</span></td>
+                        </tr>
+                        <tr class="border-b border-yellow-600/50 hover:bg-white/5">
+                            <td class="text-yellow-200 p-3">17/01/2025</td>
+                            <td class="text-yellow-200 p-3">8.0kg - Ăn hết</td>
+                            <td class="text-yellow-200 p-3">Rất năng động</td>
+                            <td class="text-yellow-200 p-3">Tốt</td>
+                            <td class="text-yellow-200 p-3">Lê Văn C</td>
+                            <td class="p-3"><span class="px-2 py-1 rounded status-good text-white text-sm">Bình thường</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Statistics Summary -->
+        <section class="grid md:grid-cols-4 gap-4 mt-6">
+            <div class="card-bg rounded-xl p-4 golden-border border text-center">
+                <div class="text-4xl mb-2">🍖</div>
+                <div class="text-3xl font-bold golden-text">7.5kg</div>
+                <div class="text-yellow-200">TB Thức ăn/ngày</div>
+            </div>
+            <div class="card-bg rounded-xl p-4 golden-border border text-center">
+                <div class="text-4xl mb-2">😴</div>
+                <div class="text-3xl font-bold golden-text">16h</div>
+                <div class="text-yellow-200">TB Giờ ngủ/ngày</div>
+            </div>
+            <div class="card-bg rounded-xl p-4 golden-border border text-center">
+                <div class="text-4xl mb-2">⚖️</div>
+                <div class="text-3xl font-bold golden-text">185kg</div>
+                <div class="text-yellow-200">Cân nặng hiện tại</div>
+            </div>
+            <div class="card-bg rounded-xl p-4 golden-border border text-center">
+                <div class="text-4xl mb-2">❤️</div>
+                <div class="text-3xl font-bold golden-text">95%</div>
+                <div class="text-yellow-200">Chỉ số sức khỏe</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-8 py-6 border-t-2 golden-border text-center">
+        <p class="golden-text font-bold">🦁 Hệ Thống Quản Lý & Theo Dõi Động Vật Hoang Dã</p>
+        <p class="text-yellow-200">© 2025 Vườn Thú Quốc Gia - Phát triển bởi Ban Công Nghệ Thông Tin</p>
+    </footer>
+
+    <script>
+        // Update current date and time
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('vi-VN', options);
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString('vi-VN');
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // Set default date and time
+        const today = new Date();
+        document.getElementById('trackDate').valueAsDate = today;
+        document.getElementById('trackTime').value = today.toTimeString().slice(0, 5);
+
+        // Form submission
+        document.getElementById('trackingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg z-50 flex items-center gap-2';
+            notification.innerHTML = '<span class="text-2xl">✅</span><span class="font-bold">Đã lưu báo cáo thành công!</span>';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        });
+
+        // Clear form
+        function clearForm() {
+            document.getElementById('trackingForm').reset();
+            document.getElementById('trackDate').valueAsDate = new Date();
+            document.getElementById('trackTime').value = new Date().toTimeString().slice(0, 5);
+            document.getElementById('bodyScore').value = 5;
+            document.getElementById('scoreValue').textContent = '5';
+        }
+    </script>
+</body>
+</html>
