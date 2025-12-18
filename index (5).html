@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Hệ Số Chuyển Hóa Thức Ăn - Gà Thịt Thả Vườn</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%),
+                        url('https://images.unsplash.com/photo-1569396116180-90a5e2415e64?q=80&w=1920') center/cover fixed;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.3);
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.7); }
+        }
+        
+        .rooster-icon {
+            animation: bob 2s ease-in-out infinite;
+        }
+        
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .status-badge {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="rooster-icon text-7xl mb-4">🐓</div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg mb-2">
+                Hệ Số Chuyển Hóa Thức Ăn
+            </h1>
+            <p class="text-orange-100 text-lg font-semibold drop-shadow">
+                Gà Thịt Thả Vườn (FCR Calculator)
+            </p>
+        </div>
+
+        <!-- Main Calculator Card -->
+        <div class="glass-card rounded-3xl shadow-2xl p-6 md:p-8 mb-6">
+            <!-- Formula Display -->
+            <div class="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-4 mb-6 border-2 border-orange-200">
+                <h3 class="text-orange-800 font-bold text-center mb-2">📐 Công Thức Tính FCR</h3>
+                <div class="text-center">
+                    <span class="inline-block bg-white px-4 py-2 rounded-xl shadow-sm text-lg font-bold text-gray-700">
+                        FCR = <span class="text-orange-600">Tổng TĂ tiêu thụ (kg)</span> ÷ <span class="text-green-600">Tổng tăng trọng (kg)</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="space-y-5">
+                <!-- Số lượng gà -->
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">
+                        🐔 Số lượng gà (con)
+                    </label>
+                    <input type="number" id="soLuongGa" 
+                           class="input-field w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
+                           placeholder="Ví dụ: 100" min="1" oninput="calculateFCR()">
+                </div>
+
+                <!-- Khối lượng ban đầu -->
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">
+                        🐣 Khối lượng ban đầu trung bình (gram/con)
+                    </label>
+                    <input type="number" id="khoiLuongDau" 
+                           class="input-field w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
+                           placeholder="Ví dụ: 45" min="0" step="0.1" oninput="calculateFCR()">
+                </div>
+
+                <!-- Khối lượng xuất chuồng -->
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">
+                        🍗 Khối lượng xuất chuồng trung bình (gram/con)
+                    </label>
+                    <input type="number" id="khoiLuongCuoi" 
+                           class="input-field w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
+                           placeholder="Ví dụ: 2500" min="0" step="0.1" oninput="calculateFCR()">
+                </div>
+
+                <!-- Tổng thức ăn -->
+                <div>
+                    <label class="block text-gray-700 font-bold mb-2">
+                        🌾 Tổng thức ăn tiêu thụ (kg)
+                    </label>
+                    <input type="number" id="tongThucAn" 
+                           class="input-field w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none text-lg"
+                           placeholder="Ví dụ: 850" min="0" step="0.1" oninput="calculateFCR()">
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="mt-8">
+                <div class="result-box rounded-2xl p-6 text-white text-center">
+                    <p class="text-orange-100 font-semibold mb-1">Hệ Số Chuyển Hóa Thức Ăn (FCR)</p>
+                    <div class="text-5xl md:text-6xl font-extrabold mb-2" id="fcrResult">
+                        --
+                    </div>
+                    <p class="text-orange-100 text-sm">kg thức ăn / kg tăng trọng</p>
+                </div>
+
+                <!-- Status Badge -->
+                <div id="statusBadge" class="mt-4 text-center hidden">
+                    <!-- Dynamic status will appear here -->
+                </div>
+
+                <!-- Additional Info -->
+                <div id="additionalInfo" class="mt-4 grid grid-cols-2 gap-4 hidden">
+                    <div class="bg-green-50 rounded-xl p-4 text-center border border-green-200">
+                        <p class="text-green-600 text-sm font-semibold">Tổng tăng trọng</p>
+                        <p class="text-2xl font-bold text-green-700" id="totalGain">0</p>
+                        <p class="text-green-500 text-xs">kg</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-xl p-4 text-center border border-blue-200">
+                        <p class="text-blue-600 text-sm font-semibold">TĂ/con</p>
+                        <p class="text-2xl font-bold text-blue-700" id="feedPerChicken">0</p>
+                        <p class="text-blue-500 text-xs">kg/con</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reset Button -->
+            <button onclick="resetForm()" 
+                    class="mt-6 w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                🔄 Nhập lại
+            </button>
+        </div>
+
+        <!-- FCR Reference Table -->
+        <div class="glass-card rounded-3xl shadow-2xl p-6 md:p-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">
+                📊 Bảng Đánh Giá FCR Gà Thả Vườn
+            </h3>
+            <div class="space-y-3">
+                <div class="flex items-center gap-3 p-3 bg-green-100 rounded-xl border-l-4 border-green-500">
+                    <span class="text-2xl">🏆</span>
+                    <div>
+                        <span class="font-bold text-green-700">FCR < 2.8</span>
+                        <span class="text-green-600 ml-2">Xuất sắc</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-blue-100 rounded-xl border-l-4 border-blue-500">
+                    <span class="text-2xl">👍</span>
+                    <div>
+                        <span class="font-bold text-blue-700">FCR 2.8 - 3.2</span>
+                        <span class="text-blue-600 ml-2">Tốt</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-yellow-100 rounded-xl border-l-4 border-yellow-500">
+                    <span class="text-2xl">👌</span>
+                    <div>
+                        <span class="font-bold text-yellow-700">FCR 3.2 - 3.6</span>
+                        <span class="text-yellow-600 ml-2">Trung bình</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-orange-100 rounded-xl border-l-4 border-orange-500">
+                    <span class="text-2xl">⚠️</span>
+                    <div>
+                        <span class="font-bold text-orange-700">FCR 3.6 - 4.0</span>
+                        <span class="text-orange-600 ml-2">Cần cải thiện</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-red-100 rounded-xl border-l-4 border-red-500">
+                    <span class="text-2xl">❌</span>
+                    <div>
+                        <span class="font-bold text-red-700">FCR > 4.0</span>
+                        <span class="text-red-600 ml-2">Kém hiệu quả</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200">
+                <p class="text-amber-800 text-sm">
+                    <strong>💡 Lưu ý:</strong> FCR gà thả vườn thường cao hơn gà công nghiệp do gà vận động nhiều, tiêu hao năng lượng hơn. FCR lý tưởng cho gà thả vườn khoảng 2.8 - 3.5.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-white/80 text-sm">
+            <p>🐓 Công cụ hỗ trợ chăn nuôi gà thả vườn</p>
+            <p class="mt-1">© 2024 - FCR Calculator</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateFCR() {
+            const soLuongGa = parseFloat(document.getElementById('soLuongGa').value) || 0;
+            const khoiLuongDau = parseFloat(document.getElementById('khoiLuongDau').value) || 0;
+            const khoiLuongCuoi = parseFloat(document.getElementById('khoiLuongCuoi').value) || 0;
+            const tongThucAn = parseFloat(document.getElementById('tongThucAn').value) || 0;
+
+            const fcrResultEl = document.getElementById('fcrResult');
+            const statusBadge = document.getElementById('statusBadge');
+            const additionalInfo = document.getElementById('additionalInfo');
+
+            // Validate inputs
+            if (soLuongGa <= 0 || khoiLuongCuoi <= khoiLuongDau || tongThucAn <= 0) {
+                fcrResultEl.textContent = '--';
+                statusBadge.classList.add('hidden');
+                additionalInfo.classList.add('hidden');
+                return;
+            }
+
+            // Calculate weight gain per chicken (in kg)
+            const tangTrongMoiCon = (khoiLuongCuoi - khoiLuongDau) / 1000; // gram to kg
+            
+            // Total weight gain (kg)
+            const tongTangTrong = tangTrongMoiCon * soLuongGa;
+            
+            // FCR calculation
+            const fcr = tongThucAn / tongTangTrong;
+            
+            // Feed per chicken
+            const thucAnMoiCon = tongThucAn / soLuongGa;
+
+            // Display results
+            fcrResultEl.textContent = fcr.toFixed(2);
+            document.getElementById('totalGain').textContent = tongTangTrong.toFixed(1);
+            document.getElementById('feedPerChicken').textContent = thucAnMoiCon.toFixed(2);
+
+            // Show additional info
+            additionalInfo.classList.remove('hidden');
+
+            // Determine status
+            let statusHTML = '';
+            if (fcr < 2.8) {
+                statusHTML = `
+                    <div class="status-badge inline-flex items-center gap-2 px-6 py-3 bg-green-100 text-green-700 rounded-full border-2 border-green-300">
+                        <span class="text-2xl">🏆</span>
+                        <span class="font-bold text-lg">Xuất sắc! Hiệu quả chuyển hóa rất tốt</span>
+                    </div>
+                `;
+            } else if (fcr < 3.2) {
+                statusHTML = `
+                    <div class="status-badge inline-flex items-center gap-2 px-6 py-3 bg-blue-100 text-blue-700 rounded-full border-2 border-blue-300">
+                        <span class="text-2xl">👍</span>
+                        <span class="font-bold text-lg">Tốt! Đàn gà phát triển hiệu quả</span>
+                    </div>
+                `;
+            } else if (fcr < 3.6) {
+                statusHTML = `
+                    <div class="status-badge inline-flex items-center gap-2 px-6 py-3 bg-yellow-100 text-yellow-700 rounded-full border-2 border-yellow-300">
+                        <span class="text-2xl">👌</span>
+                        <span class="font-bold text-lg">Trung bình - Có thể cải thiện thêm</span>
+                    </div>
+                `;
+            } else if (fcr < 4.0) {
+                statusHTML = `
+                    <div class="status-badge inline-flex items-center gap-2 px-6 py-3 bg-orange-100 text-orange-700 rounded-full border-2 border-orange-300">
+                        <span class="text-2xl">⚠️</span>
+                        <span class="font-bold text-lg">Cần cải thiện chế độ dinh dưỡng</span>
+                    </div>
+                `;
+            } else {
+                statusHTML = `
+                    <div class="status-badge inline-flex items-center gap-2 px-6 py-3 bg-red-100 text-red-700 rounded-full border-2 border-red-300">
+                        <span class="text-2xl">❌</span>
+                        <span class="font-bold text-lg">Kém hiệu quả - Cần xem xét lại</span>
+                    </div>
+                `;
+            }
+
+            statusBadge.innerHTML = statusHTML;
+            statusBadge.classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('soLuongGa').value = '';
+            document.getElementById('khoiLuongDau').value = '';
+            document.getElementById('khoiLuongCuoi').value = '';
+            document.getElementById('tongThucAn').value = '';
+            document.getElementById('fcrResult').textContent = '--';
+            document.getElementById('statusBadge').classList.add('hidden');
+            document.getElementById('additionalInfo').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
